@@ -18,5 +18,6 @@ public:
 	void update(float dt);
 	void addLayer();
 	Sequence* action();
+	Animate* animate();
 };
 

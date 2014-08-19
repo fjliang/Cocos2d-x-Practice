@@ -17,10 +17,10 @@ bool GameLayer::init(){
 		bRet = true;
 
 		//scheduleUpdate();
-
-		schedule(schedule_selector(GameLayer::update), 2.0f, kRepeatForever, 0);
+		//schedule(schedule_selector(GameLayer::update), 2.0f, kRepeatForever, 0);
 		addSprite1();
-		addLayer();
+		//addLayer();
+	 
 	} while (0);
 	return bRet;
 }
@@ -37,11 +37,33 @@ void GameLayer::addLayer(){
 	this->addChild(layerColor);
 	this->addChild(layerColor2);
 }
-
+ 
 Sequence*  GameLayer::action(){
 	FlipX* fx = FlipX::create(true);
-	MoveTo* moveTo= MoveTo::create(2, ccp(0, 0));
-	return Sequence::create(moveTo, fx, moveTo->reverse(), NULL);
+	auto hide= Hide::create();
+	MoveTo* moveTo1 = MoveTo::create(2, ccp(50, 50));
+	MoveTo* moveTo2 = MoveTo::create(2, ccp(300, 300));
+	auto moveBy= MoveBy::create(2,ccp(80,50));
+
+	auto jumpTo=JumpTo::create(2,ccp(250,250),10,5);
+	auto jumpBy=JumpBy::create(2,ccp(100,100),10,5);
+	auto blink=Blink::create(2,4);
+	 
+	auto xx = CallFunc::create(this, callfunc_selector(GameLayer::addSprite1));
+
+	return Sequence::create(fx, moveTo1, moveTo2, moveBy, jumpTo, jumpBy, blink, hide, xx, NULL);
+}
+
+Animate* GameLayer::animate(){
+	SpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("plist/birds.plist");
+	 
+	Animation* animation=Animation::create();
+	animation->setDelayPerUnit(0.2f);
+	animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("angry_birds_01.png"));
+	animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("angry_birds_02.png"));
+	animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("angry_birds_03.png"));
+
+	return Animate::create(animation);
 }
 
 void GameLayer::addSprite1(){
@@ -51,7 +73,8 @@ void GameLayer::addSprite1(){
 	//设置锚点，默认图片中心
 	//sp->setAnchorPoint(ccp(0, 0));
 	this->addChild(sprite);
-	sprite->runAction(action());
+	//sprite->runAction(action());
+	sprite->runAction(RepeatForever::create( animate()));
 }
 
 void GameLayer::addSprite2(){
