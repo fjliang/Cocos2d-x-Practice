@@ -13,6 +13,15 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
+cocos2d
+proj.android
+proj.ios_mac
+proj.linux
+proj.win32
+proj.wp8-xaml
+.cocos-project.json
+CMakeLists.txt
+
 
 # =========================
 # Operating System Files
