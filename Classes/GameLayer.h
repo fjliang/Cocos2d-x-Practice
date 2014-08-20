@@ -19,5 +19,14 @@ public:
 	void addLayer();
 	Sequence* action();
 	Animate* animate();
-};
+	BezierTo* bezierAction();
+	/** 
+	*执行多个动作
+	*/
+	Spawn*  spawn();
+	/*
+	粒子系统
+	*/
+	ParticleSystemQuad*  particle();
+}; 
 

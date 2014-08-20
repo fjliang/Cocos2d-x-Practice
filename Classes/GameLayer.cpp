@@ -18,8 +18,10 @@ bool GameLayer::init(){
 
 		//scheduleUpdate();
 		//schedule(schedule_selector(GameLayer::update), 2.0f, kRepeatForever, 0);
-		addSprite1();
+		//addSprite1();
 		//addLayer();
+
+		particle();
 	 
 	} while (0);
 	return bRet;
@@ -62,8 +64,91 @@ Animate* GameLayer::animate(){
 	animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("angry_birds_01.png"));
 	animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("angry_birds_02.png"));
 	animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("angry_birds_03.png"));
-
+	 
 	return Animate::create(animation);
+}
+BezierTo* GameLayer::bezierAction(){
+	ccBezierConfig bezier;
+	bezier.controlPoint_1 = Point(winSize.width / 2, winSize.height / 2);
+	bezier.controlPoint_2 = Point(200, 200);
+	bezier.endPosition = Point(50,100);
+	return BezierTo::create(3.0f, bezier);
+}
+
+Spawn*  GameLayer::spawn(){
+	FadeIn* fadeIn= FadeIn::create(5.0f);
+	ScaleTo* scaleTo= ScaleTo::create(2.0f,0.5f);
+	RotateBy* rotateBy= RotateBy::create(2.0f,90,180);
+	SkewTo* skewTo= SkewTo::create(2.0,60,60);
+	EaseCircleActionIn* easeCircleActionIn= EaseCircleActionIn::create(rotateBy);
+	
+	return Spawn::create(fadeIn, scaleTo, easeCircleActionIn, skewTo, NULL);
+
+}
+
+ParticleSystemQuad* GameLayer::particle(){
+	ParticleSystemQuad* emitter = ParticleSystemQuad::createWithTotalParticles(100);
+
+	emitter->setTexture(Director::getInstance()->getTextureCache()->addImage("CloseNormal.png"));
+	emitter->setDuration(ParticleSpiral::DURATION_INFINITY);
+	emitter->setEmitterMode(ParticleSystem::Mode::RADIUS);
+	emitter->setStartRadius(4);
+	emitter->setStartRadiusVar(1);
+	emitter->setEndRadius(ParticleSystem::START_RADIUS_EQUAL_TO_END_RADIUS);
+	emitter->setEndRadiusVar(0);
+
+	// radius mode: degrees per second
+	emitter->setRotatePerSecond(100);
+	emitter->setRotatePerSecondVar(0);
+
+	// angle
+	emitter->setAngle(90);
+	emitter->setAngleVar(0);
+
+	// emitter position
+	auto size = Director::getInstance()->getWinSize();
+	emitter->setPosVar(Point::ZERO);
+
+	// life of particles
+	emitter->setLife(0.5);
+	emitter->setLifeVar(0);
+
+	// spin of particles
+	emitter->setStartSpin(0);
+	emitter->setStartSpinVar(0);
+	emitter->setEndSpin(0);
+	emitter->setEndSpinVar(0);
+
+	// color of particles
+	Color4F startColor(0.0f, 0.8f, 0.9f, 1.0f);
+	emitter->setStartColor(startColor);
+
+	Color4F startColorVar(0, 0, 0, 1.0f);
+	emitter->setStartColorVar(startColorVar);
+
+	Color4F endColor(1.0f, 1.0f, 1.0f, 0.1f);
+	emitter->setEndColor(endColor);
+
+	Color4F endColorVar(0, 0, 0, 0.1f);
+	emitter->setEndColorVar(endColorVar);
+
+	// size, in pixels
+	emitter->setStartSize(20);
+	emitter->setStartSizeVar(1);
+	emitter->setEndSize(0);
+
+	emitter->setPosition(200,200);
+
+	// emits per second
+	emitter->setEmissionRate(emitter->getTotalParticles() / emitter->getLife());
+
+	// additive
+	emitter->setBlendAdditive(false);
+
+	addChild(emitter, 5);
+
+	return emitter;
+
 }
 
 void GameLayer::addSprite1(){
@@ -74,7 +159,10 @@ void GameLayer::addSprite1(){
 	//sp->setAnchorPoint(ccp(0, 0));
 	this->addChild(sprite);
 	//sprite->runAction(action());
-	sprite->runAction(RepeatForever::create( animate()));
+	//sprite->runAction(RepeatForever::create( animate()));
+	//sprite->runAction(RepeatForever::create(bezierAction()));
+	//sprite->runAction(RepeatForever::create(spawn()));
+
 }
 
 void GameLayer::addSprite2(){
