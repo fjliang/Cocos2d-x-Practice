@@ -1,13 +1,19 @@
 #include "GameLayer.h"
 
 Size winSize;
+Vector<Sprite*> vec;
+Array* arr;
+ 
 GameLayer::GameLayer()
 {
 	winSize = Director::getInstance()->getWinSize();
+	arr = Array::create();
+	arr->retain();
 }
 
 GameLayer::~GameLayer()
 {
+	 
 }
 
 bool GameLayer::init(){
@@ -18,15 +24,41 @@ bool GameLayer::init(){
 
 		//scheduleUpdate();
 		//schedule(schedule_selector(GameLayer::update), 2.0f, kRepeatForever, 0);
-		//addSprite1();
+		addSprite1();
 		//addLayer();
-
-		particle();
+		//particle();
+		//test();
 	 
 	} while (0);
 	return bRet;
 }
+void GameLayer::test(){
+	Sprite* sp = Sprite::create("angry_birds_01.png");
+	vec.pushBack(sp);
+	vec.pushBack(sp);
+	vec.pushBack(sp);
+	vec.pushBack(sp);
+	vec.pushBack(sp);
+	vec.pushBack(sp);
+	vec.pushBack(sp);
+	for (Sprite* s : vec)
+	{
+		log("arrayCount----------->" + vec.size());
+	}
 
+
+	arr->addObject(sp);
+	arr->addObject(sp);
+	arr->addObject(sp);
+	arr->addObject(sp);
+	arr->addObject(sp);
+
+	Object* obj;
+	CCARRAY_FOREACH(arr,obj){
+		log("CCARRAY_FOREACH----------->" + arr->count());
+	}
+
+}
 void GameLayer::update(float dt){
 	log("update");
 }
@@ -61,6 +93,7 @@ Animate* GameLayer::animate(){
 	 
 	Animation* animation=Animation::create();
 	animation->setDelayPerUnit(0.2f);
+	 
 	animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("angry_birds_01.png"));
 	animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("angry_birds_02.png"));
 	animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("angry_birds_03.png"));
@@ -159,7 +192,7 @@ void GameLayer::addSprite1(){
 	//sp->setAnchorPoint(ccp(0, 0));
 	this->addChild(sprite);
 	//sprite->runAction(action());
-	//sprite->runAction(RepeatForever::create( animate()));
+	sprite->runAction(RepeatForever::create( animate()));
 	//sprite->runAction(RepeatForever::create(bezierAction()));
 	//sprite->runAction(RepeatForever::create(spawn()));
 

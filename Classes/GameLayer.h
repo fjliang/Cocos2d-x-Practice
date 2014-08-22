@@ -28,5 +28,6 @@ public:
 	аёвсо╣мЁ
 	*/
 	ParticleSystemQuad*  particle();
+	void test();
 }; 
 
