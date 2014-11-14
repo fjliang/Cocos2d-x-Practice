@@ -1,4 +1,5 @@
 #include "HelloWorldScene.h"
+#include "Box2dPratice.h"
 
 USING_NS_CC;
 
@@ -8,7 +9,8 @@ Scene* HelloWorld::createScene()
     auto scene = Scene::create();
     
     // 'layer' is an autorelease object
-    auto layer = HelloWorld::create();
+	//auto layer = HelloWorld::create();
+	auto layer = Box2dPratice::create();
 
     // add layer as a child to scene
     scene->addChild(layer);

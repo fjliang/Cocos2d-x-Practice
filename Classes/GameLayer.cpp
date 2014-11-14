@@ -2,6 +2,7 @@
 
 Size winSize;
 Vector<Sprite*> vec;
+Vector<String*> str;
 Array* arr;
  
 GameLayer::GameLayer()
@@ -24,10 +25,10 @@ bool GameLayer::init(){
 
 		//scheduleUpdate();
 		//schedule(schedule_selector(GameLayer::update), 2.0f, kRepeatForever, 0);
-		addSprite1();
+		//addSprite1();
 		//addLayer();
 		//particle();
-		//test();
+		test();
 	 
 	} while (0);
 	return bRet;
@@ -45,7 +46,15 @@ void GameLayer::test(){
 	{
 		log("arrayCount----------->" + vec.size());
 	}
-
+	String* x = String::create("x");
+	 
+	str.pushBack(&String("cc"));
+	 
+ 
+	for (String*  ss : str)
+	{
+		log("str----------->" + str.size());
+	}
 
 	arr->addObject(sp);
 	arr->addObject(sp);
@@ -57,7 +66,6 @@ void GameLayer::test(){
 	CCARRAY_FOREACH(arr,obj){
 		log("CCARRAY_FOREACH----------->" + arr->count());
 	}
-
 }
 void GameLayer::update(float dt){
 	log("update");
