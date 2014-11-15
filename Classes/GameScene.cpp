@@ -1,5 +1,6 @@
 #include "GameScene.h"
 #include "Box2dPratice.h"
+#include "Box2d1.h"
 
 GameScene::GameScene()
 {
@@ -18,7 +19,9 @@ bool GameScene::init(){
 		//_gameLayer = GameLayer::create();
 		//CC_BREAK_IF(!_gameLayer);
 
-		auto layer = Box2dPratice::create();
+		//auto layer = Box2dPratice::create();
+
+		auto layer = Box2d1::create();
 
 		this->addChild(layer);
 		bRet = true;

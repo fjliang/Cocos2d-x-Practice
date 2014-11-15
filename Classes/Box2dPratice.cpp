@@ -55,7 +55,7 @@ Box2dPratice::Box2dPratice()
 		addWall(10, visibleSize.height, visibleSize.width, (visibleSize.height / 2)); //RIGHT
 
 		for (int i = 1; i <= 31; i++){
-			points[i] = CCSprite::create("dot.png");
+			points[i] = Sprite::create("dot.png");
 			this->addChild(points[i]);
 		}
 

@@ -43,3 +43,6 @@ Icon
 # Files that might appear on external disk
 .Spotlight-V100
 .Trashes
+
+proj.win32/Cocos2d-x-Practice.vcxproj.filters
+proj.win32/Cocos2d-x-Practice.v12.suo
