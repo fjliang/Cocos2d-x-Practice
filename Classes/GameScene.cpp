@@ -1,7 +1,8 @@
 #include "GameScene.h"
 #include "Box2dPratice.h"
 #include "Box2d1.h"
-
+#include "TableView1.h"
+ 
 GameScene::GameScene()
 {
 	_gameLayer = NULL;
@@ -19,9 +20,12 @@ bool GameScene::init(){
 		//_gameLayer = GameLayer::create();
 		//CC_BREAK_IF(!_gameLayer);
 
+ 
 		//auto layer = Box2dPratice::create();
 
-		auto layer = Box2d1::create();
+		//auto layer = Box2d1::create();
+
+		auto layer = TableView1::create();
 
 		this->addChild(layer);
 		bRet = true;
